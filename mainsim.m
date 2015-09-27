@@ -21,9 +21,9 @@ T_y = K_y - V*alpha;
 T_e = K_e - V*(1-alpha);
 
 f = figure; hold on;
-[y_i, y_d, y_c] = flu_sim(T_y, p_y, f_y, c_y, 2);
+[tt, y_i, y_d, y_c] = flu_sim(T_y, p_y, f_y, c_y, 4);
 plot(tt, y_i, 'r');
 plot(tt, y_d, 'black');
 plot(tt, y_c, 'g');
-saveas(f, './young_infec.png', 'png');
+% saveas(f, './young_infec.png', 'png');
 

@@ -1,13 +1,13 @@
-function [y_i, y_d, y_c] = flu_sim(T_y, p_y, f_y, c_y, lookback, compound, time)
+function [tt, y_i, y_d, y_c] = flu_sim(T_y, p_y, f_y, c_y, lookback, compound, time)
 
 if nargin < 5
     lookback = 4;
 end
 if nargin < 6
-    compound = 2;
+    compound = 4;
 end
 if nargin < 7
-    time = 20;
+    time = 50;
 end
 
 delta_time = 1/compound; % compound once a day
