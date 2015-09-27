@@ -1,7 +1,7 @@
-K = 60000;
-K_y = 36000;
-K_e = 3600;
-V = 4000;
+K = 6000;
+K_y = 3600;
+K_e = 360;
+V = 400;
 
 i_y = 1;
 i_e = 2;
@@ -21,7 +21,7 @@ T_y = K_y - V*alpha;
 T_e = K_e - V*(1-alpha);
 
 f = figure; hold on;
-[y_i, y_d, y_c] = flu_sim(T_y, p_y, f_y, c_y);
+[y_i, y_d, y_c] = flu_sim(T_y, p_y, f_y, c_y, 2);
 plot(tt, y_i, 'r');
 plot(tt, y_d, 'black');
 plot(tt, y_c, 'g');

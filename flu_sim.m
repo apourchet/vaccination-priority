@@ -1,7 +1,15 @@
-function [y_i, y_d, y_c] = flu_sim(T_y, p_y, f_y, c_y)
+function [y_i, y_d, y_c] = flu_sim(T_y, p_y, f_y, c_y, lookback, compound, time)
 
-compound = 2;
-time = 20; % 1 year
+if nargin < 5
+    lookback = 4;
+end
+if nargin < 6
+    compound = 2;
+end
+if nargin < 7
+    time = 20;
+end
+
 delta_time = 1/compound; % compound once a day
 tt = delta_time * (0:compound*time);
 
@@ -12,7 +20,11 @@ y_c = [0;0];
 
 for t=tt(3:end)
     infected = y_i(end);
-    new_infected = y_i(end)-y_i(end-1);
+    if t-lookback*compound <= 0
+        contagious = y_i(end);
+    else
+        contagious = y_i(end) - y_i(end-lookback*compound);
+    end
     dead = y_d(end);
     cured = y_c(end);
     pop = [ones(infected, 1); zeros(T_y-infected-dead, 1)];
@@ -23,7 +35,7 @@ for t=tt(3:end)
             cured = cured + 1;
         end
     end
-    for n=1:new_infected % INFECT MORE
+    for n=1:contagious % INFECT MORE
         pop = or(pop, rand(T_y-dead, 1) < (p_y/(T_y-dead)/compound));
     end
     for n=1:infected
@@ -36,6 +48,6 @@ for t=tt(3:end)
     y_i = [y_i; sum(pop)];
     y_d = [y_d; dead];
     y_c = [y_c; cured];
-
+    y_i(end)
 end
 
