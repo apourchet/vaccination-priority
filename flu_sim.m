@@ -1,20 +1,22 @@
-function [tt, y_i, y_d, y_c] = flu_sim(T_y, p_y, f_y, c_y, lookback, compound, time)
+function [tt, y_i, y_d, y_c] = flu_sim(T_y, p_y, f_y, c_y, init_y, lookback, compound, time)
 
 if nargin < 5
-    lookback = 4;
+    init_y = 10;
 end
 if nargin < 6
-    compound = 4;
+    lookback = 4;
 end
 if nargin < 7
-    time = 50;
+    compound = 4;
+end
+if nargin < 8
+    time = 150;
 end
 
 delta_time = 1/compound; % compound once a day
 tt = delta_time * (0:compound*time);
 
-START_INFECTED_Y = 10;
-y_i = [0;START_INFECTED_Y];
+y_i = [0;init_y];
 y_d = [0;0];
 y_c = [0;0];
 
@@ -48,6 +50,6 @@ for t=tt(3:end)
     y_i = [y_i; sum(pop)];
     y_d = [y_d; dead];
     y_c = [y_c; cured];
-    y_i(end)
+    y_i(end);
 end
 
